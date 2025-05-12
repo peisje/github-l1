@@ -1,17 +1,31 @@
-
-with open('characters.txt', 'r', encoding='utf-8') as file:
-    characters = [line.strip() for line in file if line.strip()]
-
-print(characters)
-
-
 import random
 
+with open("characters.txt", "r", encoding="utf-8") as file:
+    characters = file.readlines()
 
-with open('characters.txt', 'r', encoding='utf-8') as file:
-    characters = [line.strip() for line in file if line.strip()]
+with open("output.txt", "w", encoding="utf-8") as file2:
+    for name in characters:
+        status = random.choice(["alive", "dead"])
+        print(name.strip(), "-", status)
+        file2.write(f"{name.strip()} – {status}\n")
+        
+alive = []
+dead = []
 
-with open('output.txt', 'w', encoding='utf-8') as out_file:
-    for character in characters:
-        status = random.choice(['alive', 'dead'])
-        out_file.write(f"{character} – {status}\n")
+with open("output.txt", "r", encoding="utf-8") as file:
+    for line in file:
+        if "alive" in line:
+            alive.append(line)
+        elif "dead" in line:
+            dead.append(line)
+
+with open("alive-characters.txt", "w", encoding="utf-8") as file_alive:
+    file_alive.writelines(alive)
+
+with open("dead-characters.txt", "w", encoding="utf-8") as file_dead:
+    file_dead.writelines(dead)
+        
+
+        
+        
+
